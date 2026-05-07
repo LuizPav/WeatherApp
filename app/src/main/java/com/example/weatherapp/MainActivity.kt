@@ -21,6 +21,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.weatherapp.ui.nav.BottomNavBar
 import com.example.weatherapp.ui.nav.BottomNavItem
 import com.example.weatherapp.ui.nav.MainNavHost
+import com.example.weatherapp.ui.theme.Orange40
 import com.example.weatherapp.ui.theme.WeatherAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -55,7 +56,10 @@ class MainActivity : ComponentActivity() {
                         BottomNavBar(navController = navController, items)
                     },
                     floatingActionButton = {
-                        FloatingActionButton(onClick = { }) {
+                        FloatingActionButton(
+                            onClick = { },
+                            containerColor = Orange40
+                        ) {
                             Icon(Icons.Default.Add, contentDescription = "Adicionar")
                         }
                     }

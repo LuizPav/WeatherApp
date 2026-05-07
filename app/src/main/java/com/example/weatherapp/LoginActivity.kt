@@ -92,8 +92,17 @@ fun LoginPage(modifier: Modifier = Modifier) {
                         FLAG_ACTIVITY_SINGLE_TOP
                     )
                 )},
-                enabled = email.isNotEmpty()) {
+                enabled = email.isNotEmpty() && password.isNotEmpty()) {
                 Text("Login")
+            }
+            Button(
+                onClick = { activity.startActivity(
+                    Intent(activity, RegisterActivity::class.java).setFlags(
+                        FLAG_ACTIVITY_SINGLE_TOP
+                    )
+                )},
+            ) {
+                Text("Criar Conta")
             }
             Button(onClick = { email = ""; password = "" }) {
                 Text("Limpar")

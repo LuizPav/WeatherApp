@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.setContent
@@ -17,9 +16,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,9 +26,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.weatherapp.ui.theme.InputField
 import com.example.weatherapp.ui.theme.WeatherAppTheme
 
 class LoginActivity : ComponentActivity() {
@@ -63,23 +60,21 @@ fun LoginPage(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.size(12.dp))
 
-       OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text(text = "Digite seu e-mail") },
-            modifier = Modifier.fillMaxWidth(0.9f),
-            shape = RoundedCornerShape(16.dp)
-       )
+        InputField(
+             value = email,
+             onValueChange = { email = it },
+             label = "Digite seu e-mail",
+             modifier = Modifier.fillMaxWidth(0.9f),
+        )
 
         Spacer(modifier = Modifier.size(12.dp))
 
-        OutlinedTextField(
+        InputField(
             value = password,
             onValueChange = { password = it },
-            label = { Text(text = "Digite sua senha") },
+            label = "Digite sua senha",
             modifier = Modifier.fillMaxWidth(0.9f),
-            shape = RoundedCornerShape(16.dp),
-            visualTransformation = PasswordVisualTransformation()
+            isPassword = true
         )
 
         Row(

@@ -17,9 +17,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,7 +29,7 @@ import androidx.compose.ui.unit.dp
 import com.example.weatherapp.ui.theme.WeatherAppTheme
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.text.input.PasswordVisualTransformation
+import com.example.weatherapp.ui.theme.InputField
 
 class RegisterActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,44 +89,40 @@ fun RegisterPage(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        OutlinedTextField(
+        InputField(
             modifier = Modifier.fillMaxWidth(0.9f),
             value = name,
             onValueChange = { name = it },
-            label = { Text("Insira o Nome") },
-            shape = RoundedCornerShape(16.dp)
+            label = "Insira o Nome"
         )
         Spacer(
             Modifier.size(24.dp)
         )
-        OutlinedTextField(
+        InputField(
             modifier = Modifier.fillMaxWidth(0.9f),
             value = email,
             onValueChange = { email = it },
-            label = { Text("Insira o Email") },
-            shape = RoundedCornerShape(16.dp)
+            label = "Insira o Email"
         )
         Spacer(
             Modifier.size(24.dp)
         )
-        OutlinedTextField(
+        InputField(
             modifier = Modifier.fillMaxWidth(0.9f),
             value = password,
             onValueChange = { password = it },
-            label = { Text("Insira a Senha") },
-            shape = RoundedCornerShape(16.dp),
-            visualTransformation = PasswordVisualTransformation()
+            label = "Insira a Senha",
+            isPassword = true
         )
         Spacer(
             Modifier.size(24.dp)
         )
-        OutlinedTextField(
+        InputField(
             modifier = Modifier.fillMaxWidth(0.9f),
             value = confirmPassword,
             onValueChange = { confirmPassword = it },
-            label = { Text("Confirme sua Senha") },
-            shape = RoundedCornerShape(16.dp),
-            visualTransformation = PasswordVisualTransformation()
+            label = "Confirme sua Senha",
+            isPassword = true
         )
         Row(
             modifier = Modifier.fillMaxWidth().padding(top = 16.dp),

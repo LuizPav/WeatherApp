@@ -28,7 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.weatherapp.ui.theme.InputField
+import com.example.weatherapp.ui.InputField
 import com.example.weatherapp.ui.theme.WeatherAppTheme
 
 class LoginActivity : ComponentActivity() {

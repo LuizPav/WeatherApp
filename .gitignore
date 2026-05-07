@@ -1,15 +1,27 @@
-*.iml
+# Arquivos de compilação e caches
 .gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
 /build
 /captures
 .externalNativeBuild
 .cxx
+
+# Configurações do Android Studio (Pasta .idea)
+# É melhor ignorar a pasta inteira e abrir exceções se necessário
+.idea/
+# Se quiser ser muito específico, pode manter assim:
+# .idea/libraries
+# .idea/modules.xml
+# .idea/workspace.xml
+# ... mas a linha ".idea/" acima já resolve tudo.
+
+# Arquivos locais e de senhas (NUNCA envie para o Git)
 local.properties
+.DS_Store
+
+# Arquivos do projeto IntelliJ/Android Studio
+*.iml
+*.ipr
+*.iws
+
+# Arquivos gerados pelo sistema
+/out

@@ -3,6 +3,7 @@ package com.example.weatherapp.ui
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
 import com.example.weatherapp.model.City
+import com.google.android.gms.maps.model.LatLng
 
 class MainViewModel: ViewModel() {
     private val _cities = List(20) { i ->
@@ -13,7 +14,7 @@ class MainViewModel: ViewModel() {
     fun remove(city: City) {
         _cities.remove(city)
     }
-    fun add(name: String) {
-        _cities.add(City(name = name))
+    fun add(name: String, location: LatLng? = null) {
+        _cities.add(City(name = name, location = location))
     }
 }

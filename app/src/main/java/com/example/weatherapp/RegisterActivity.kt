@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -30,6 +31,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.weatherapp.ui.InputField
 import com.example.weatherapp.ui.theme.WeatherAppTheme
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 class RegisterActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +58,7 @@ fun RegisterPage(modifier: Modifier = Modifier) {
     var email by rememberSaveable { mutableStateOf("") }
     var confirmPassword by rememberSaveable { mutableStateOf("") }
     val activity = LocalActivity.current as Activity;
+    val isPasswordInvalid = password.isNotEmpty() && password.length < 6;
 
     fun clearFields() {
         name = "";
@@ -68,12 +72,17 @@ fun RegisterPage(modifier: Modifier = Modifier) {
         if(password != confirmPassword) {
             return Toast.makeText(activity, "as senhas estão diferentes!", Toast.LENGTH_LONG).show()
         }
-        Toast.makeText(activity, "Registrado com Sucesso!", Toast.LENGTH_LONG).show()
-        activity.startActivity(
-            Intent(activity, LoginActivity::class.java).setFlags(
-                FLAG_ACTIVITY_SINGLE_TOP
-            )
-        )
+        Firebase.auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(activity) { task ->
+                if(task.isSuccessful) {
+                    Toast.makeText(activity,
+                        "Registrado com Sucesso!", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(activity,
+                        "Registro Falhou!", Toast.LENGTH_LONG).show()
+                }
+            }
+
     }
 
     val isRegisterEnabled: Boolean = name.isNotEmpty() &&
@@ -112,6 +121,8 @@ fun RegisterPage(modifier: Modifier = Modifier) {
             value = password,
             onValueChange = { password = it },
             label = "Insira a Senha",
+            isError = isPasswordInvalid,
+            errorMessage = "A senha deve possuir ao menos 6 digitos!",
             isPassword = true
         )
         Spacer(
@@ -122,6 +133,8 @@ fun RegisterPage(modifier: Modifier = Modifier) {
             value = confirmPassword,
             onValueChange = { confirmPassword = it },
             label = "Confirme sua Senha",
+            isError = isPasswordInvalid,
+            errorMessage = "A senha deve possuir ao menos 6 digitos!",
             isPassword = true
         )
         Row(

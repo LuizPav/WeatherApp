@@ -35,6 +35,8 @@ import com.example.weatherapp.ui.nav.MainNavHost
 import com.example.weatherapp.ui.nav.Route
 import com.example.weatherapp.ui.theme.Orange40
 import com.example.weatherapp.ui.theme.WeatherAppTheme
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
@@ -49,6 +51,11 @@ class MainActivity : ComponentActivity() {
             val showButton = currentRoute.value?.destination?.hasRoute(Route.List::class) == true
             val launcher = rememberLauncherForActivityResult(contract =
                 ActivityResultContracts.RequestPermission(), onResult = {} )
+
+            fun handleLogout() {
+                Firebase.auth.signOut()
+            }
+
             WeatherAppTheme {
                 if (showDialog) CityDialog(
                     onDismiss = { showDialog = false },
@@ -61,7 +68,9 @@ class MainActivity : ComponentActivity() {
                         TopAppBar(
                             title = { Text("Bem-vindo/a!") },
                             actions = {
-                                IconButton( onClick = { finish() } ) {
+                                IconButton(
+                                    onClick = { handleLogout() }
+                                ) {
                                     Icon(
                                         imageVector =
                                             Icons.AutoMirrored.Filled.ExitToApp,

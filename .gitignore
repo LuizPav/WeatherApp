@@ -15,6 +15,7 @@
 # ... mas a linha ".idea/" acima já resolve tudo.
 
 # Arquivos locais e de senhas (NUNCA envie para o Git)
+/app/google-services.json
 local.properties
 .DS_Store
 

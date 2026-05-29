@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.setContent
@@ -30,6 +31,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weatherapp.ui.InputField
 import com.example.weatherapp.ui.theme.WeatherAppTheme
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +53,22 @@ fun LoginPage(modifier: Modifier = Modifier) {
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     val activity = LocalActivity.current as Activity
+
+    fun handleLogin() {
+        if(email.isBlank() || password.isBlank()) {
+            Toast.makeText(activity, "Insira um Email e uma Senha", Toast.LENGTH_SHORT).show()
+            return;
+        }
+
+        Firebase.auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(activity) { task ->
+                if(task.isSuccessful) {
+                    Toast.makeText(activity, "Login OK!", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(activity, "Login falhou!", Toast.LENGTH_LONG).show()
+                }
+            }
+    }
 
     Column(
         modifier = modifier.fillMaxSize().padding(24.dp),
@@ -82,11 +101,7 @@ fun LoginPage(modifier: Modifier = Modifier) {
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             Button(
-                onClick = { activity.startActivity(
-                    Intent(activity, MainActivity::class.java).setFlags(
-                        FLAG_ACTIVITY_SINGLE_TOP
-                    )
-                )},
+                onClick = { handleLogin() },
                 enabled = email.isNotEmpty() && password.isNotEmpty()) {
                 Text("Login")
             }

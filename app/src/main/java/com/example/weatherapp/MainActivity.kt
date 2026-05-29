@@ -54,7 +54,6 @@ class MainActivity : ComponentActivity() {
 
             fun handleLogout() {
                 Firebase.auth.signOut()
-                finish();
             }
 
             WeatherAppTheme {

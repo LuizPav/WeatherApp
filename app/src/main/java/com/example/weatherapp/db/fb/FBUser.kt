@@ -8,7 +8,7 @@ class FBUser {
     fun toUser() = User(name!!, email!!);
 }
 
-fun User.toTBUser() : FBUser {
+fun User.toFBUser() : FBUser {
     val fbUser = FBUser();
 
     fbUser.name = this.name;

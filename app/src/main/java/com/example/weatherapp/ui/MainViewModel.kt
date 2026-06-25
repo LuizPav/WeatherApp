@@ -1,5 +1,6 @@
 package com.example.weatherapp.ui
 
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.toMutableStateList
 import androidx.lifecycle.ViewModel
@@ -13,9 +14,7 @@ import com.example.weatherapp.model.User
 import com.google.android.gms.maps.model.LatLng
 
 class MainViewModel(private val db: FBDatabase): ViewModel(), FBDatabase.Listener {
-    private val _cities = List(20) { i ->
-        City(name = "Cidade $i", weather = "Carregando Clima...")
-    }.toMutableStateList()
+    private val _cities = mutableStateListOf<City>();
 
     private val _user = mutableStateOf<User?>(null);
 

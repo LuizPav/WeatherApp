@@ -30,6 +30,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weatherapp.ui.InputField
+import com.example.weatherapp.ui.MainViewModel
+import com.example.weatherapp.ui.nav.Route
 import com.example.weatherapp.ui.theme.WeatherAppTheme
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
@@ -64,6 +66,9 @@ fun LoginPage(modifier: Modifier = Modifier) {
             .addOnCompleteListener(activity) { task ->
                 if(task.isSuccessful) {
                     Toast.makeText(activity, "Login OK!", Toast.LENGTH_LONG).show()
+                    val intent = Intent(activity, MainActivity::class.java)
+                    activity.startActivity(intent)
+                    activity.finish()
                 } else {
                     Toast.makeText(activity, "Login falhou!", Toast.LENGTH_LONG).show()
                 }

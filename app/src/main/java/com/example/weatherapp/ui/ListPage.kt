@@ -25,14 +25,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weatherapp.model.City
+import com.example.weatherapp.model.Weather
+import com.example.weatherapp.ui.nav.Route
 
 @Composable
 fun CityItem(
     city: City,
+    weather: Weather,
     onClick: () -> Unit,
     onClose: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val desc = if (weather == Weather.LOADING) "Carregando clima..." else weather.desc
     Row(
         modifier = modifier.fillMaxWidth().padding(8.dp).clickable { onClick() },
         verticalAlignment = Alignment.CenterVertically
@@ -47,7 +51,7 @@ fun CityItem(
                 text = city.name,
                 fontSize = 24.sp)
             Text(modifier = Modifier,
-                text = city.weather?:"Carregando clima...",
+                text = desc,
                 fontSize = 16.sp)
         }
         IconButton(onClick = onClose) {
@@ -68,8 +72,12 @@ fun ListPage(modifier: Modifier = Modifier, viewModel: MainViewModel) {
         items(cityList, key = { it.name }) { city ->
             CityItem(
                 city = city,
+                weather = viewModel.weather(city.name),
                 onClose = { viewModel.remove(city) },
-                onClick = { Toast.makeText(activity, "Cidade clicada", Toast.LENGTH_LONG).show(); }
+                onClick = {
+                    viewModel.city = city.name
+                    viewModel.page = Route.Home
+                }
             )
         }
     }

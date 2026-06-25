@@ -11,10 +11,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.weatherapp.ui.MainViewModel
 import com.example.weatherapp.ui.theme.Orange40
 
 @Composable
-fun BottomNavBar(navController: NavHostController, items : List<BottomNavItem>) {
+fun BottomNavBar(navController: NavHostController, items : List<BottomNavItem>, viewModel: MainViewModel) {
     NavigationBar(
         contentColor = Color.Black
     ) {
@@ -25,7 +26,7 @@ fun BottomNavBar(navController: NavHostController, items : List<BottomNavItem>) 
                 icon = { Icon(imageVector = item.icon, contentDescription= item.title)},
                 label = { Text(text = item.title, fontSize = 12.sp) },
                 alwaysShowLabel = true,
-                selected = currentRoute == item.route::class.qualifiedName,
+                selected = viewModel.page == item.route,
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = Orange40,
                     selectedTextColor = Orange40,
@@ -33,18 +34,7 @@ fun BottomNavBar(navController: NavHostController, items : List<BottomNavItem>) 
                     unselectedIconColor = Color.Gray,
                     unselectedTextColor = Color.Gray
                 ),
-                onClick = {
-                    navController.navigate(item.route) {
-                        // Volta pilha de navegação até HomePage (startDest).
-                        navController.graph.startDestinationRoute?.let {
-                            popUpTo(it) {
-                                saveState = true
-                            }
-                            restoreState = true
-                        }
-                        launchSingleTop = true
-                    }
-                }
+                onClick = { viewModel.page = item.route }
             )
         }
     }
